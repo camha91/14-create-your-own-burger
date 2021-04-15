@@ -23,7 +23,7 @@ class ChooseBurgerToppings extends Component {
                   <td>
                     <button
                       onClick={() => {
-                        this.props.addTopping(topping.name, 1);
+                        this.props.addTopping(topping.name, true);
                       }}
                       className="bg-success text-white"
                     >
@@ -32,15 +32,15 @@ class ChooseBurgerToppings extends Component {
                     {topping.amount}
                     <button
                       onClick={() => {
-                        this.props.addTopping(topping.name, -1);
+                        this.props.addTopping(topping.name, false);
                       }}
                       className="bg-danger text-white"
                     >
                       -
                     </button>
                   </td>
-                  <td>{topping.price.toLocaleString()}</td>
-                  <td>{(topping.amount * topping.price).toLocaleString()}</td>
+                  <td>${topping.price.toLocaleString()}</td>
+                  <td>${(topping.amount * topping.price).toLocaleString()}</td>
                 </tr>
               );
             })}
@@ -51,6 +51,7 @@ class ChooseBurgerToppings extends Component {
               <td></td>
               <td>SubTotal</td>
               <td>
+                $
                 {this.props.burger
                   .reduce((subTotal, topping, index) => {
                     return (subTotal += topping.amount * topping.price);
@@ -73,11 +74,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTopping: (toppingName, number) => {
+    addTopping: (toppingName, changeQty) => {
       dispatch({
         type: "ADD_TOPPING",
         toppingName,
-        number,
+        changeQty,
       });
     },
   };

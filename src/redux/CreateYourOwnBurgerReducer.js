@@ -13,11 +13,12 @@ const CreateYourOwnBurger = (state = stateBurger, action) => {
       let index = burgerStateUpdate.findIndex(
         (topping) => topping.name === action.toppingName
       );
-      console.log(index);
 
-      if (index !== -1) {
+      if (action.changeQty === true) {
+        burgerStateUpdate[index].amount += 1;
+      } else {
         if (burgerStateUpdate[index].amount >= 1) {
-          burgerStateUpdate[index].amount += action.number;
+          burgerStateUpdate[index].amount -= 1;
         } else {
           alert("Quantity is at least 0!");
         }
