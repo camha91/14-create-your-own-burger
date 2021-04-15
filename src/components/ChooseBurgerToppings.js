@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-export default class ChooseBurgerToppings extends Component {
+class ChooseBurgerToppings extends Component {
   render() {
     return (
       <div>
@@ -15,40 +16,47 @@ export default class ChooseBurgerToppings extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Salad</td>
-              <td>
-                <button className="bg-success text-white">+</button>4
-                <button className="bg-danger text-white">-</button>
-              </td>
-              <td>1</td>
-              <td>4</td>
-            </tr>
-            <tr>
-              <td>Cheese</td>
-              <td>
-                <button className="bg-success text-white">+</button>2
-                <button className="bg-danger text-white">-</button>
-              </td>
-              <td>2</td>
-              <td>4</td>
-            </tr>
-            <tr>
-              <td>Beef</td>
-              <td>
-                <button className="bg-success text-white">+</button>5
-                <button className="bg-danger text-white">-</button>
-              </td>
-              <td>5.5</td>
-              <td>11</td>
-            </tr>
+            {this.props.burger.map((topping, index) => {
+              return (
+                <tr key={index}>
+                  <td>{topping.name}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        this.props.addTopping(topping.name, 1);
+                      }}
+                      className="bg-success text-white"
+                    >
+                      +
+                    </button>
+                    {topping.amount}
+                    <button
+                      onClick={() => {
+                        this.props.addTopping(topping.name, -1);
+                      }}
+                      className="bg-danger text-white"
+                    >
+                      -
+                    </button>
+                  </td>
+                  <td>{topping.price.toLocaleString()}</td>
+                  <td>{(topping.amount * topping.price).toLocaleString()}</td>
+                </tr>
+              );
+            })}
           </tbody>
-          <tfoot>
+          <tfoot className="text-primary">
             <tr>
               <td></td>
               <td></td>
               <td>SubTotal</td>
-              <td>19</td>
+              <td>
+                {this.props.burger
+                  .reduce((subTotal, topping, index) => {
+                    return (subTotal += topping.amount * topping.price);
+                  }, 0)
+                  .toLocaleString()}
+              </td>
             </tr>
           </tfoot>
         </table>
@@ -56,3 +64,26 @@ export default class ChooseBurgerToppings extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    burger: state.CreateYourOwnBurger.burger,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTopping: (toppingName, number) => {
+      dispatch({
+        type: "ADD_TOPPING",
+        toppingName,
+        number,
+      });
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChooseBurgerToppings);
