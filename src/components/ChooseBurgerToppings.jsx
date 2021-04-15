@@ -39,8 +39,8 @@ class ChooseBurgerToppings extends Component {
                       -
                     </button>
                   </td>
-                  <td>${topping.price.toLocaleString()}</td>
-                  <td>${(topping.amount * topping.price).toLocaleString()}</td>
+                  <td>{topping.price.toLocaleString()}</td>
+                  <td>{(topping.amount * topping.price).toLocaleString()}</td>
                 </tr>
               );
             })}
@@ -51,7 +51,6 @@ class ChooseBurgerToppings extends Component {
               <td></td>
               <td>SubTotal</td>
               <td>
-                $
                 {this.props.burger
                   .reduce((subTotal, topping, index) => {
                     return (subTotal += topping.amount * topping.price);

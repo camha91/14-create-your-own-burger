@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Project description
 
-This project is to build your own burger. There are 3 types of toppings on the right side, salad, cheese and beef. When the user clicks on the buttons to change the quantity for each topping, the number of toppings will appear accordingly on the burger on the right side based on the amount of each topping. If the quantity is 0, there will be an alert to let the user knows the quantity is at least 0.
+This project is to build your own burger. There are 3 types of toppings on the right side, salad, cheese and beef. When the user clicks on the buttons to change the quantity for each topping, the number of toppings will appear accordingly on the burger based on the amount of each topping. If the quantity is 0, there will be an alert to let the user knows the quantity is at least 0.
 
 ## Available Scripts
 
